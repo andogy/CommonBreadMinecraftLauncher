@@ -10,7 +10,6 @@ public class Utils {
         Date date = new Date();
         SimpleDateFormat ft = new SimpleDateFormat ("[yyyy/MM/dd hh:mm:ss.SSS] ");
 
-
         System.out.println(ft.format(date)+msg);
     }
 }

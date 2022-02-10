@@ -12,7 +12,7 @@ public class SourceDownloader {
 
     public static void download(String web, String filename) {
         try {
-            String path = "/Resource/"+filename;
+            String path = "Resource/"+filename;
             URL url = new URL(web);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(5000);
@@ -22,6 +22,9 @@ public class SourceDownloader {
                 fileLength = conn.getContentLength();
                 File file = new File(path);
                 if (!file.exists()) {
+                    if ((new File(file.getParent()).mkdirs())){
+                        System.out.println("成功创建: "+file.getParent());
+                    }
                     if (file.createNewFile()){
                         System.out.println("成功创建: "+path);
                     }
