@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Run" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="com.caibi.minecraft.launcher.CommonBread.CommonBreadMinecraftLauncherInitJavaFile" />
+    <option name="MAIN_CLASS_NAME" value="com.caibi.minecraft.launcher.cb._init_" />
     <module name="cbl" />
     <method v="2">
       <option name="Make" enabled="true" />
