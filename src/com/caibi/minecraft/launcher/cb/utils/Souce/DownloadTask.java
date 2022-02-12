@@ -7,7 +7,6 @@ public class DownloadTask extends Thread{
 
     private final String filePath;
     private final String urlPath;
-    private final String threadName;
     private final int startSize;
     private final int endSize;
 
@@ -16,7 +15,6 @@ public class DownloadTask extends Thread{
         this.startSize=startSize;
         this.filePath=filePath;
         this.urlPath=urlPath;
-        this.threadName=threadName;
     }
     @Override
     public void run() {
@@ -39,7 +37,6 @@ public class DownloadTask extends Thread{
                 }
                 raf.close();
                 bi.close();
-                System.out.println("thread"+threadName+"下载完成,开始位置"+startSize+",结束位置"+endSize);
             }
         } catch (IOException e) {
             e.printStackTrace();

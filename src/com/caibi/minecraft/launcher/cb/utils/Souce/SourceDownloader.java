@@ -9,6 +9,7 @@ public class SourceDownloader {
     public static int threadCount = Integer.parseInt(Config.getConfig("downloadThreadNum"));
     public static int fileLength = 0;
     public static Thread [] threadList = new Thread[threadCount];
+    public static String alreadyDownload;
 
     public static void download(String web, String filename) {
         try {
@@ -45,13 +46,13 @@ public class SourceDownloader {
                 }
 
                 while (DownloadUtils.downOver) {
-                    Thread.sleep(500);
                     if (DownloadUtils.downLength == fileLength) {
                         DownloadUtils.downOver = false;
-                        System.out.println("下载完成：100%");
+                        System.out.println("下载完成");
                     } else {
-                        System.out.println("已经下载了：" + ((int) (float) DownloadUtils.downLength / (float) fileLength * 100) + "%");
+                        alreadyDownload = ((int) ((float) DownloadUtils.downLength / (float) fileLength * 100)) + "%";
                     }
+                    Thread.sleep(10);
                 }
 
             } else {
