@@ -13,6 +13,10 @@ public class VersionParser {
         JSONObject versions = new JSONObject(getVersionJson());
         String src = null;
 
+        if (mf.contains("new")){
+            DownloadMinecraft.downloadVersionJson();
+        }
+
         if (!mf.contains("versions")) {
             if (mf.contains("latest")) {
                 src = versions.get("latest").toString();
@@ -45,9 +49,10 @@ public class VersionParser {
                         idList.append(id).append("     ").append(type).append("     ").append(version.get("url")).append("\n");
                     } else if (mf.contains("old_beta") && type.equals("old_beta")){
                         idList.append(id).append("     ").append(type).append("     ").append(version.get("url")).append("\n");
-                    }else if (mf.contains("old_alpha") && type.equals("old_alpha")){
+                    } else if (mf.contains("old_alpha") && type.equals("old_alpha")){
                         idList.append(id).append("     ").append(type).append("     ").append(version.get("url")).append("\n");
-                    } else {
+                    }
+                    if (!(mf.contains("old_alpha") || mf.contains("old_beta") || mf.contains("snapshot") || mf.contains("release"))) {
                         idList.append(id).append("     ").append(type).append("     ").append(version.get("url")).append("\n");
                     }
                 }

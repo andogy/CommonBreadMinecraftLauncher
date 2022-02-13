@@ -1,6 +1,7 @@
 package com.caibi.minecraft.launcher.cb.utils.Souce;
 
 import com.caibi.minecraft.launcher.cb.utils.Config.Config;
+import com.caibi.minecraft.launcher.cb.utils.Utils;
 
 import java.io.*;
 import java.net.*;
@@ -11,7 +12,15 @@ public class SourceDownloader {
     public static Thread [] threadList = new Thread[threadCount];
     public static String alreadyDownload;
 
-    public static void download(String web, String filename) {
+    public static void download(String w, String n, Boolean newThread) {
+        if (newThread){
+            new Thread(() -> normalDownload(w, n));
+        } else {
+            normalDownload(w, n);
+        }
+    }
+
+    static void normalDownload(String web, String filename){
         try {
             String path = "Resource/"+filename;
             URL url = new URL(web);
@@ -24,11 +33,11 @@ public class SourceDownloader {
                 File file = new File(path);
                 if (!file.exists()) {
                     if ((new File(file.getParent()).mkdirs())){
-                        System.out.println("成功创建: "+file.getParent());
+                        Utils.Log("成功创建: "+file.getParent());
                     }
 
                     if (file.createNewFile()){
-                        System.out.println("成功创建: "+path);
+                        Utils.Log("成功创建: "+path);
                     }
                 }
                 RandomAccessFile raf = new RandomAccessFile(path, "rwd");
@@ -48,7 +57,7 @@ public class SourceDownloader {
                 while (DownloadUtils.downOver) {
                     if (DownloadUtils.downLength == fileLength) {
                         DownloadUtils.downOver = false;
-                        System.out.println("下载完成");
+                        Utils.Log(filename+"下载完成");
                     } else {
                         alreadyDownload = ((int) ((float) DownloadUtils.downLength / (float) fileLength * 100)) + "%";
                     }
@@ -56,7 +65,7 @@ public class SourceDownloader {
                 }
 
             } else {
-                System.out.println("服务器响应失败: " + code);
+                Utils.Log("服务器响应失败: " + code);
             }
         } catch (IOException | InterruptedException e){
             e.printStackTrace();
