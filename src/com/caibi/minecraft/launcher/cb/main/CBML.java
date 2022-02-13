@@ -1,9 +1,9 @@
 package com.caibi.minecraft.launcher.cb.main;
 
-import com.caibi.minecraft.launcher.cb.utils.Souce.Parser.VersionParser;
+import com.caibi.minecraft.launcher.cb.Minecraft.DownloadMinecraft;
 
 public class CBML {
     public static void CBLInit(String[] args){
-        System.out.println(VersionParser.parse("versions list release"));
+        DownloadMinecraft.downloadVersion("1.17.1");
     }
 }

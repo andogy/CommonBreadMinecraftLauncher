@@ -12,6 +12,7 @@ public class VersionParser {
     public static String parse(String mf){
         JSONObject versions = new JSONObject(getVersionJson());
         String src = null;
+        JSONObject srcURL = new JSONObject();
 
         if (mf.contains("new")){
             DownloadMinecraft.downloadVersionJson();
@@ -42,22 +43,30 @@ public class VersionParser {
 
                     String type = version.get("type").toString();
                     String id = version.get("id").toString();
+                    String url = version.get("url").toString();
 
                     if (mf.contains("release") && type.equals("release")){
-                        idList.append(id).append("     ").append(type).append("     ").append(version.get("url")).append("\n");
+                        idList.append(id).append("     ").append(type).append("     ").append(url).append("\n");
                     } else if (mf.contains("snapshot") && type.equals("snapshot")){
-                        idList.append(id).append("     ").append(type).append("     ").append(version.get("url")).append("\n");
+                        idList.append(id).append("     ").append(type).append("     ").append(url).append("\n");
                     } else if (mf.contains("old_beta") && type.equals("old_beta")){
-                        idList.append(id).append("     ").append(type).append("     ").append(version.get("url")).append("\n");
+                        idList.append(id).append("     ").append(type).append("     ").append(url).append("\n");
                     } else if (mf.contains("old_alpha") && type.equals("old_alpha")){
-                        idList.append(id).append("     ").append(type).append("     ").append(version.get("url")).append("\n");
+                        idList.append(id).append("     ").append(type).append("     ").append(url).append("\n");
                     }
                     if (!(mf.contains("old_alpha") || mf.contains("old_beta") || mf.contains("snapshot") || mf.contains("release"))) {
-                        idList.append(id).append("     ").append(type).append("     ").append(version.get("url")).append("\n");
+                        idList.append(id).append("     ").append(type).append("     ").append(url).append("\n");
+                    }
+
+                    if (mf.contains("url")){
+                        srcURL.put(id, url);
                     }
                 }
-
-                src = idList.toString();
+                if (mf.contains("url")){
+                    src = srcURL.toString();
+                } else {
+                    src = idList.toString();
+                }
             }
         }
 

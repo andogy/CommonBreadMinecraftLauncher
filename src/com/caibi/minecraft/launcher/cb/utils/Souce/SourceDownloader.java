@@ -22,7 +22,7 @@ public class SourceDownloader {
 
     static void normalDownload(String web, String filename){
         try {
-            String path = "Resource/"+filename;
+            String path = "Resource\\" + filename;
             URL url = new URL(web);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(5000);
