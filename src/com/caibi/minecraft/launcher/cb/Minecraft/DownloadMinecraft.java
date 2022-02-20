@@ -6,7 +6,7 @@ import com.caibi.minecraft.launcher.cb.utils.Souce.SourceDownloader;
 
 public class DownloadMinecraft {
     public static void downloadVersionJson(){
-        SourceDownloader.download(Config.getConfig("minecraftVersion"), "Launcher\\version.json", false);
+        SourceDownloader.download(Config.getConfig("minecraftVersion"), "Launcher\\version.json", false, false);
     }
 
     public static void downloadVersion(String id){

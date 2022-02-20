@@ -3,8 +3,11 @@ package com.caibi.minecraft.launcher.cb.utils.Souce;
 import com.caibi.minecraft.launcher.cb.utils.Config.Config;
 import com.caibi.minecraft.launcher.cb.utils.Utils;
 
-import java.io.*;
-import java.net.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class SourceDownloader {
     public static int threadCount = Integer.parseInt(Config.getConfig("downloadThreadNum"));
@@ -12,17 +15,22 @@ public class SourceDownloader {
     public static Thread [] threadList = new Thread[threadCount];
     public static String alreadyDownload;
 
-    public static void download(String w, String n, Boolean newThread) {
+    public static void download(String w, String n, Boolean newThread, Boolean c) {
         if (newThread){
-            new Thread(() -> normalDownload(w, n));
+            new Thread(() -> normalDownload(w, n, c));
         } else {
-            normalDownload(w, n);
+            normalDownload(w, n, c);
         }
     }
 
-    static void normalDownload(String web, String filename){
+    static void normalDownload(String web, String filename, Boolean cosPath){
         try {
-            String path = "Resource\\" + filename;
+            String path;
+            if (cosPath){
+                path = filename;
+            } else {
+                path = "Resource\\" + filename;
+            }
             URL url = new URL(web);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setConnectTimeout(5000);
