@@ -4,6 +4,7 @@ import java.net.*;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 
 public class Utils {
     public static void Log(String msg) {
@@ -47,6 +48,11 @@ public class Utils {
         result = text.substring(zLen, yLen);
 
         return result;
+    }
+
+    public static String input(){
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
     }
 }
 

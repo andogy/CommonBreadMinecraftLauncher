@@ -13,6 +13,7 @@ public class VersionParser {
         JSONObject versions = new JSONObject(getVersionJson());
         String src = null;
         JSONObject srcURL = new JSONObject();
+        JSONArray srcID = new JSONArray();
 
         if (mf.contains("new")){
             DownloadMinecraft.downloadVersionJson();
@@ -61,9 +62,15 @@ public class VersionParser {
                     if (mf.contains("url")){
                         srcURL.put(id, url);
                     }
+
+                    if (mf.contains("id")){
+                        srcID.put(id);
+                    }
                 }
                 if (mf.contains("url")){
                     src = srcURL.toString();
+                } else if (mf.contains("id")){
+                    src = srcID.toString();
                 } else {
                     src = idList.toString();
                 }

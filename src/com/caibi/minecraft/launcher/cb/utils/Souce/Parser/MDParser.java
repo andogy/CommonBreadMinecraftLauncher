@@ -3,14 +3,15 @@ package com.caibi.minecraft.launcher.cb.utils.Souce.Parser;
 import com.caibi.minecraft.launcher.cb.utils.Souce.SourceDownloader;
 
 import com.caibi.minecraft.launcher.cb.utils.Utils;
-import org.json.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
+import static com.caibi.minecraft.launcher.cb.utils.Souce.Variable.versionsData;
+
 public class MDParser {
-    static JSONObject versionsData = new JSONObject(VersionParser.parse("versions list url"));
+
 
     public static void parse(String id){
         String data = readFile(id);
