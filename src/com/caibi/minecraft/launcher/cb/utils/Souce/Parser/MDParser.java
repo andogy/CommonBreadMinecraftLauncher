@@ -23,16 +23,16 @@ public class MDParser {
         String data = "{}";
         try {
             if (!file.exists()){
-                Utils.Log("没有找到文件");
+                Utils.Log.print("没有找到文件");
                 if (!(new File(file.getParent())).exists()){
                     if ((new File(file.getParent())).mkdirs()){
-                        Utils.Log("成功创建: "+(new File(file.getParent())));
+                        Utils.Log.print("成功创建: "+(new File(file.getParent())));
                     }
                 }
                 if (file.createNewFile()){
-                    Utils.Log("成功创建: Launcher\\Versions_Data\\"+id+".json");
+                    Utils.Log.print("成功创建: Launcher\\Versions_Data\\"+id+".json");
                     SourceDownloader.download(versionsData.getString(id), "Launcher\\Versions_Data\\"+id+".json", false, false);
-                    Utils.Log("成功下载:Launcher\\Versions_Data\\"+id+".json");
+                    Utils.Log.print("成功下载:Launcher\\Versions_Data\\"+id+".json");
                 }
             }
             Scanner scanner = new Scanner(file);

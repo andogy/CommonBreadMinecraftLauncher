@@ -7,13 +7,6 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Utils {
-    public static void Log(String msg) {
-        Date date = new Date();
-        SimpleDateFormat ft = new SimpleDateFormat ("[yyyy/MM/dd hh:mm:ss.SSS] ");
-
-        System.out.println(ft.format(date)+msg);
-    }
-
     public static String getWeb(String web) {
         String line = null;
         try {
@@ -53,6 +46,17 @@ public class Utils {
     public static String input(){
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
+    }
+
+     public static class Log{
+        public static void print(String msg) {
+            Date date = new Date();
+            SimpleDateFormat ft = new SimpleDateFormat ("[yyyy/MM/dd hh:mm:ss.SSS] ");
+
+            System.out.println(ft.format(date)+msg);
+        }
+
+        public static void non(){ System.out.println("\n"); }
     }
 }
 
