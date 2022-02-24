@@ -41,11 +41,11 @@ public class SourceDownloader {
                 File file = new File(path);
                 if (!file.exists()) {
                     if ((new File(file.getParent()).mkdirs())){
-                        Utils.Log.print("成功创建: "+file.getParent());
+                        Utils.Log.print("Successfully create: "+file.getParent());
                     }
 
                     if (file.createNewFile()){
-                        Utils.Log.print("成功创建: "+path);
+                        Utils.Log.print("Successfully create: "+path);
                     }
                 }
                 RandomAccessFile raf = new RandomAccessFile(path, "rwd");
@@ -65,7 +65,7 @@ public class SourceDownloader {
                 while (DownloadUtils.downOver) {
                     if (DownloadUtils.downLength == fileLength) {
                         DownloadUtils.downOver = false;
-                        Utils.Log.print(filename+"下载完成");
+                        Utils.Log.print("Successfully download: "+filename);
                     } else {
                         alreadyDownload = ((int) ((float) DownloadUtils.downLength / (float) fileLength * 100)) + "%";
                     }
@@ -73,7 +73,7 @@ public class SourceDownloader {
                 }
 
             } else {
-                Utils.Log.print("服务器响应失败: " + code);
+                Utils.Log.print("Download error, can't connect server: " + code);
             }
         } catch (IOException | InterruptedException e){
             e.printStackTrace();

@@ -1,45 +1,91 @@
 package com.caibi.minecraft.launcher.cb.ui;
 
 import com.caibi.minecraft.launcher.cb.Minecraft.DownloadMinecraft;
+import com.caibi.minecraft.launcher.cb.utils.Souce.Parser.VersionParser;
 import com.caibi.minecraft.launcher.cb.utils.Souce.Variable;
 import com.caibi.minecraft.launcher.cb.utils.Utils;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+import javafx.scene.web.WebView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 public class Window extends JFrame {
+    JScrollPane VersionList;
+    JButton DownloadButton;
+
+    String clickedVersion = VersionParser.parse("latest release");
+
     public Window(String title, int width, int height){
         super(title);
         setSize(width, height);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setLayout(null);
 
-        add(getList());
+        DownloadButton = downloadButton();
+        add(DownloadButton);
+
+        VersionList = getList();
+        add(VersionList);
 
         setVisible(true);
     }
 
     JScrollPane getList(){
         JList<String> list = new JList<>(new DefaultComboBoxModel<>(getIDArray()));
+
         list.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    int index = list.locationToIndex(e.getPoint());
-                    String clickedVersion = Variable.versionsID.get(index).toString();
+                int index = list.locationToIndex(e.getPoint());
+                clickedVersion = Variable.versionsID.get(index).toString();
 
-                    Utils.Log.print("下载任务: "+clickedVersion);
-                    DownloadMinecraft.downloadVersion(clickedVersion);
+                if (e.getClickCount() == 2) {
+                    Utils.Log.print("点击了" + clickedVersion);
+                    remove(VersionList);
+                    add(webView("https://minecraft.fandom.com/en/wiki/Java_Edition_"+clickedVersion));
                 }
             }
         });
 
         JScrollPane listScroll = new JScrollPane();
         listScroll.setViewportView(list);
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                listScroll.setLocation(getWidth() - 213, listScroll.getY());
+                if (!(getHeight()-150 < 50)) {
+                    listScroll.setSize(200, getHeight() - 150);
+                    list.setSize(200, getHeight() - 150);
+                }
+            }
+        });
 
         return listScroll;
+    }
+
+    JFXPanel webView(String url){
+        JFXPanel panel = new JFXPanel();
+        panel.setSize(getWidth(),getHeight());
+
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                panel.setSize(getWidth(),getHeight());
+            }
+        });
+
+        Platform.runLater(() -> {
+            WebView webView = new WebView();
+            panel.setScene(new Scene(webView));
+            webView.getEngine().load(url);
+        });
+
+        return panel;
     }
 
     String[] getIDArray(){
@@ -49,5 +95,23 @@ public class Window extends JFrame {
         }
 
         return src;
+    }
+
+    JButton downloadButton(){
+        JButton button = new JButton("Download");
+        button.setSize(100,20);
+        button.setFont(new Font("Arial", Font.PLAIN, 15));
+        button.setFocusPainted(false);
+
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                button.setLocation(getWidth()-115, getHeight()-60);
+            }
+        });
+
+        button.addActionListener(e -> DownloadMinecraft.downloadVersion(clickedVersion));
+
+        return button;
     }
 }

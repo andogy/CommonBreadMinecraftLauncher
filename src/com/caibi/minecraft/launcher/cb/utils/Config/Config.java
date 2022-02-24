@@ -13,9 +13,9 @@ public class Config {
         String dat = null;
         try {
             if (!file.exists()){
-                Utils.Log.print("没有找到配置文件");
+                Utils.Log.print("No configuration file founded");
                 if (file.createNewFile()){
-                    Utils.Log.print("成功创建配置文件");
+                    Utils.Log.print("Successfully create configuration file");
                     writeConfig("{'minecraftVersion':'https://launchermeta.mojang.com/mc/game/version_manifest.json'}");
                     addConfig("downloadThreadNum","50");
                 }
@@ -41,9 +41,9 @@ public class Config {
         String data = "{}";
         try {
             if (!file.exists()){
-                Utils.Log.print("没有找到配置文件");
+                Utils.Log.print("No configuration file founded");
                 if (file.createNewFile()){
-                    Utils.Log.print("成功创建配置文件");
+                    Utils.Log.print("Successfully create configuration file");
                     writeConfig("{'minecraftVersion':'https://launchermeta.mojang.com/mc/game/version_manifest.json'}");
                 }
             }

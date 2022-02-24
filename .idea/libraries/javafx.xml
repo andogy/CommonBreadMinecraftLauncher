@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="javafx">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.jdks/openjdk-17.0.2/javafx-sdk-17.0.2/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$USER_HOME$/.jdks/openjdk-17.0.2/javafx-sdk-17.0.2/bin" />
+    </NATIVE>
+    <SOURCES>
+      <root url="file://$USER_HOME$/.jdks/openjdk-17.0.2/javafx-sdk-17.0.2/javafx.media" />
+      <root url="file://$USER_HOME$/.jdks/openjdk-17.0.2/javafx-sdk-17.0.2/javafx.fxml" />
+      <root url="file://$USER_HOME$/.jdks/openjdk-17.0.2/javafx-sdk-17.0.2/javafx.web" />
+      <root url="file://$USER_HOME$/.jdks/openjdk-17.0.2/javafx-sdk-17.0.2/javafx.base" />
+      <root url="file://$USER_HOME$/.jdks/openjdk-17.0.2/javafx-sdk-17.0.2/javafx.controls" />
+      <root url="file://$USER_HOME$/.jdks/openjdk-17.0.2/javafx-sdk-17.0.2/javafx.graphics" />
+      <root url="file://$USER_HOME$/.jdks/openjdk-17.0.2/javafx-sdk-17.0.2/javafx.swing" />
+    </SOURCES>
+    <jarDirectory url="file://$USER_HOME$/.jdks/openjdk-17.0.2/javafx-sdk-17.0.2/lib" recursive="false" />
+  </library>
+</component>
