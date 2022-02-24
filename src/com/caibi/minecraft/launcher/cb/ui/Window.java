@@ -25,6 +25,7 @@ public class Window extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
+        setMinimumSize(new Dimension(width,height));
 
         DownloadButton = downloadButton();
         add(DownloadButton);
@@ -57,10 +58,10 @@ public class Window extends JFrame {
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                listScroll.setLocation(getWidth() - 213, listScroll.getY());
+                listScroll.setLocation(getWidth() - 213, 0);
                 if (!(getHeight()-150 < 50)) {
-                    listScroll.setSize(200, getHeight() - 150);
                     list.setSize(200, getHeight() - 150);
+                    listScroll.setSize(list.getSize());
                 }
             }
         });
@@ -101,16 +102,20 @@ public class Window extends JFrame {
         JButton button = new JButton("Download");
         button.setSize(100,20);
         button.setFont(new Font("Arial", Font.PLAIN, 15));
-        button.setFocusPainted(false);
 
-        addComponentListener(new ComponentAdapter() {
+        button.setOpaque(false);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+
+        addComponentListener((new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                button.setLocation(getWidth()-115, getHeight()-60);
+                button.setLocation(getWidth()-100, getHeight()-150);
             }
-        });
+        }));
 
-        button.addActionListener(e -> DownloadMinecraft.downloadVersion(clickedVersion));
+        button.addActionListener(This_is_a_watermark___the_author_is_andogy -> DownloadMinecraft.downloadVersion(clickedVersion));
 
         return button;
     }
