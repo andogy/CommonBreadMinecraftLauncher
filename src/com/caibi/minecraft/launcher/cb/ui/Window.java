@@ -4,14 +4,12 @@ import com.caibi.minecraft.launcher.cb.Minecraft.DownloadMinecraft;
 import com.caibi.minecraft.launcher.cb.utils.Souce.Parser.VersionParser;
 import com.caibi.minecraft.launcher.cb.utils.Souce.Variable;
 import com.caibi.minecraft.launcher.cb.utils.Utils;
-import javafx.application.Platform;
-import javafx.embed.swing.JFXPanel;
-import javafx.scene.Scene;
-import javafx.scene.web.WebView;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
+import java.net.*;
 
 public class Window extends JFrame {
     JScrollPane VersionList;
@@ -46,9 +44,8 @@ public class Window extends JFrame {
                 clickedVersion = Variable.versionsID.get(index).toString();
 
                 if (e.getClickCount() == 2) {
-                    Utils.Log.print("点击了" + clickedVersion);
-                    remove(VersionList);
-                    add(webView("https://minecraft.fandom.com/en/wiki/Java_Edition_"+clickedVersion));
+                    Utils.Log.print("Clicked: " + clickedVersion);
+                    webView("https://minecraft.fandom.com/wiki/"+clickedVersion);
                 }
             }
         });
@@ -69,24 +66,12 @@ public class Window extends JFrame {
         return listScroll;
     }
 
-    JFXPanel webView(String url){
-        JFXPanel panel = new JFXPanel();
-        panel.setSize(getWidth(),getHeight());
-
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                panel.setSize(getWidth(),getHeight());
-            }
-        });
-
-        Platform.runLater(() -> {
-            WebView webView = new WebView();
-            panel.setScene(new Scene(webView));
-            webView.getEngine().load(url);
-        });
-
-        return panel;
+    void webView(String url) {
+        try {
+            Desktop.getDesktop().browse(new URI(url));
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+        }
     }
 
     String[] getIDArray(){
@@ -115,7 +100,7 @@ public class Window extends JFrame {
             }
         }));
 
-        button.addActionListener(This_is_a_watermark___the_author_is_andogy -> DownloadMinecraft.downloadVersion(clickedVersion));
+        button.addActionListener(e -> DownloadMinecraft.downloadVersion(clickedVersion));
 
         return button;
     }
